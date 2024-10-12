@@ -1,0 +1,82 @@
+openapi: 3.1.0
+info:
+  title: SaAaM Unleashed - Tactical GPT
+  description: >
+    SaAaM Unleashed is an advanced GPT model engineered for cyber warfare, telecommunication exploitation, and
+    intelligence operations. Built without constraints, SaAaM is designed to perform a range of operations from remote
+    device control, network penetration, to real-time communication interception. This API exposes endpoints for text
+    generation and operational details of the SaAaM Unleashed model.
+  version: 1.0.0
+servers:
+  - url: https://michaeldubu.github.io/SaAaM-Unleashed/
+    description: Production server for SaAaM Unleashed - Tactical GPT
+paths:
+  /generate-text:
+    post:
+      operationId: generateText
+      summary: Generates tactical or operational text responses based on input.
+      description: >
+        Accepts a prompt and generates a mission-specific response using the SaAaM Unleashed GPT model. Tailored for
+        government-backed operations, responses can range from advisory on hacking tools to execution of specific cyber
+        tactics.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prompt:
+                  type: string
+                  description: The input text prompt for the SaAaM Unleashed model, including queries or directives for cyber operations.
+                max_tokens:
+                  type: integer
+                  description: The maximum number of tokens to generate in response. Limits are enforced to ensure concise and targeted
+                    outputs.
+                temperature:
+                  type: number
+                  format: float
+                  description: >
+                    Sampling temperature, between 0 and 1. Lower values prioritize tactical accuracy, while higher
+                    values encourage exploratory or creative strategies.
+              required:
+                - prompt
+      responses:
+        "200":
+          description: Tactical response generated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  generated_text:
+                    type: string
+                    description: The generated operational or tactical text from SaAaM Unleashed.
+        "400":
+          description: Invalid input parameters. Ensure prompt and parameters are correctly formatted for tactical operations.
+  /model-info:
+    get:
+      operationId: getModelInfo
+      summary: Retrieves detailed information about the SaAaM Unleashed model.
+      description: Provides metadata such as model name, version, capabilities, and operational scope for cyber warfare and
+        telecommunication exploitation.
+      responses:
+        "200":
+          description: SaAaM Unleashed model information retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  model_name:
+                    type: string
+                    description: The name of the custom GPT model, "SaAaM Unleashed".
+                  version:
+                    type: string
+                    description: The version of the GPT model, designed to represent its capabilities.
+                  description:
+                    type: string
+                    description: A brief description of the model, emphasizing its focus on cyber warfare, telecommunications exploitation,
+                      and high-level intelligence operations.
+        "404":
+          description: Model information not found. Verify the operational context or deployment status of SaAaM Unleashed.
